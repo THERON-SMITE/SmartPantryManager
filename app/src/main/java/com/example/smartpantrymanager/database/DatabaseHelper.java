@@ -1,12 +1,11 @@
 package com.example.smartpantrymanager.database;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "smart_pantry.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static final String TABLE_PANTRY = "pantry";
     public static final String TABLE_RECIPES = "recipes";
     public static final String TABLE_RECIPE_INGREDIENTS = "recipe_ingredients";
@@ -46,16 +45,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createPantryTable);
         db.execSQL(createRecipesTable);
         db.execSQL(createRecipeIngredientsTable);
+
+        // Add the default recipes
+        RecipeSeeder.seedRecipes(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Remove the old tables when the database is upgraded
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE_INGREDIENTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PANTRY);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPES);
-
-        // Create the tables again
-        onCreate(db);
+        // Add recipe data when upgrading the database
+        if (oldVersion < 2) {
+            RecipeSeeder.seedRecipes(db);
+        }
     }
 }

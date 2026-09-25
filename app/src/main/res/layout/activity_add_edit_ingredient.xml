@@ -42,7 +42,7 @@
             android:id="@+id/unitEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Unit (for example: kg, g, pieces)"
+            android:hint="Unit (for example: whole, g, ml, slices)"
             android:inputType="text"
             android:layout_marginTop="12dp" />
 
