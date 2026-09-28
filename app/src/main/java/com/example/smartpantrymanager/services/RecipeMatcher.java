@@ -8,6 +8,34 @@ import java.util.ArrayList;
 
 public class RecipeMatcher {
 
+    private String normaliseIngredientName(
+            String ingredientName) {
+
+        // Standardise the ingredient name
+        String name =
+                ingredientName.trim().toLowerCase();
+
+        // Handle common plural forms
+        if (name.endsWith("ies")) {
+            name = name.substring(
+                    0,
+                    name.length() - 3
+            ) + "y";
+        } else if (name.endsWith("es")) {
+            name = name.substring(
+                    0,
+                    name.length() - 2
+            );
+        } else if (name.endsWith("s")) {
+            name = name.substring(
+                    0,
+                    name.length() - 1
+            );
+        }
+
+        return name;
+    }
+
     public boolean canMakeRecipe(
             Recipe recipe,
             List<RecipeIngredient> recipeIngredients,
@@ -58,8 +86,13 @@ public class RecipeMatcher {
             String pantryIngredient) {
 
         // Compare ingredient names without case differences
-        return recipeIngredient.trim()
-                .equalsIgnoreCase(pantryIngredient.trim());
+        String recipeName =
+                normaliseIngredientName(recipeIngredient);
+
+        String pantryName =
+                normaliseIngredientName(pantryIngredient);
+
+        return recipeName.equals(pantryName);
     }
 
     private boolean unitsMatch(

@@ -45,6 +45,19 @@ public class PantryActivity extends AppCompatActivity {
 
             startActivity(intent);
         });
+
+        // Suggested recipes button
+        Button suggestedRecipesButton =
+                findViewById(R.id.suggestedRecipesButton);
+
+        suggestedRecipesButton.setOnClickListener(v -> {
+            // Open the suggested recipes screen
+            Intent intent = new Intent(
+                    PantryActivity.this,
+                    SuggestedRecipesActivity.class );
+
+            startActivity(intent);
+        });
     }
 
     @Override

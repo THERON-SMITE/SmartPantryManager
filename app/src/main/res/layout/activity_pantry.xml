@@ -30,6 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Ingredient"
-        android:layout_marginTop="12dp" />
+        android:layout_margin="12dp" />
+
+    <!-- Button for suggested recipes -->
+    <Button
+        android:id="@+id/suggestedRecipesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Suggested Recipes"
+        android:layout_margin="12dp" />
 
 </LinearLayout>
