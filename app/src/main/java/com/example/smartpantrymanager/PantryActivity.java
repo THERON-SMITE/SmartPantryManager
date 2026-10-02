@@ -35,6 +35,7 @@ public class PantryActivity extends AppCompatActivity {
                 new LinearLayoutManager(this)
         );
 
+        // Add ingredient button
         Button addIngredientButton =
                 findViewById(R.id.addIngredientButton);
 
@@ -58,6 +59,29 @@ public class PantryActivity extends AppCompatActivity {
             Intent intent = new Intent(
                     PantryActivity.this,
                     SuggestedRecipesActivity.class );
+
+            startActivity(intent);
+        });
+
+        // Pantry navigation button
+        Button pantryNavigationButton =
+                findViewById(R.id.pantryNavigationButton);
+
+        pantryNavigationButton.setOnClickListener(v -> {
+
+        });
+
+        // Settings navigation button
+        Button settingsNavigationButton =
+                findViewById(R.id.settingsNavigationButton);
+
+        settingsNavigationButton.setOnClickListener(v -> {
+
+            // Open the Settings screen
+            Intent intent = new Intent(
+                    PantryActivity.this,
+                    SettingsActivity.class
+            );
 
             startActivity(intent);
         });
