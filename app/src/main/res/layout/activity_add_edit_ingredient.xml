@@ -38,12 +38,10 @@
             android:layout_marginTop="12dp" />
 
         <!-- Unit -->
-        <EditText
-            android:id="@+id/unitEditText"
+        <Spinner
+            android:id="@+id/unitSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Unit (for example: whole, g, ml, slices)"
-            android:inputType="text"
             android:layout_marginTop="12dp" />
 
         <!-- Expiry date -->
