@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.text.DecimalFormat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.example.smartpantrymanager.R;
 import com.example.smartpantrymanager.database.PantryDAO;
 import com.example.smartpantrymanager.models.PantryItem;
 import java.util.List;
+
 
 public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryViewHolder> {
 
@@ -50,10 +52,17 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
         // Get the pantry item for this row
         PantryItem item = pantryItems.get(position);
 
+        // Display the ingredient name
         holder.ingredientNameText.setText(item.getName());
 
+        // Display the quantity without unnecessary decimal places
+        DecimalFormat quantityFormat =
+                new DecimalFormat("0.##");
+
         holder.ingredientQuantityText.setText(
-                item.getQuantity() + " " + item.getUnit()
+                quantityFormat.format(item.getQuantity())
+                        + " "
+                        + item.getUnit()
         );
 
         if (item.getExpiryDate() == null ||

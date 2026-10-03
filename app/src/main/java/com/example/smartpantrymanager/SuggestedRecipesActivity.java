@@ -1,6 +1,7 @@
 package com.example.smartpantrymanager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,10 @@ public class SuggestedRecipesActivity
                 findViewById(
                         R.id.noRecipesMessage
                 );
+
+        // Return to the pantry screen
+        Button backButton = findViewById(R.id.backButton);
+                backButton.setOnClickListener(v -> finish());
 
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this)

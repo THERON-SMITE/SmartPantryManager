@@ -16,9 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Ingredient"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp" />
+            style="@style/ScreenHeading" />
+<!--            android:textSize="26sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginBottom="20dp" />-->
 
         <!-- Ingredient name -->
         <EditText
@@ -62,12 +63,12 @@
             android:text="Save Ingredient"
             android:layout_marginTop="24dp" />
 
-        <!-- Cancel button -->
+        <!-- Back button -->
         <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/backButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="Back"
             android:layout_marginTop="8dp" />
 
     </LinearLayout>

@@ -3,6 +3,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartpantrymanager.R;
@@ -48,11 +49,14 @@ public class RecipeAdapter
             @NonNull RecipeViewHolder holder,
             int position) {
 
+        // Get the recipe for this card
         Recipe recipe = recipes.get(position);
 
+        // Display the recipe name
         holder.recipeName.setText(recipe.getName());
 
-        holder.itemView.setOnClickListener(
+        // Open the recipe details when View is pressed
+        holder.viewRecipeButton.setOnClickListener(
                 view -> listener.onRecipeClick(recipe)
         );
     }
@@ -66,14 +70,23 @@ public class RecipeAdapter
             extends RecyclerView.ViewHolder {
 
         TextView recipeName;
+        Button viewRecipeButton;
 
         RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // Connect the recipe name
             recipeName =
                     itemView.findViewById(
                             R.id.recipeName
                     );
+
+            //Connect the View Button
+            viewRecipeButton =
+                    itemView.findViewById(
+                            R.id.viewRecipeButton
+                    );
+
         }
     }
 }

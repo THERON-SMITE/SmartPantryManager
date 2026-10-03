@@ -4,13 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/recipeName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@drawable/pantry_item_background">
+
+        <!-- Recipe name -->
+        <TextView
+            android:id="@+id/recipeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <!-- View recipe button -->
+        <Button
+            android:id="@+id/viewRecipeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

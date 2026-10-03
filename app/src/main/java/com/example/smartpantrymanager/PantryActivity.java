@@ -63,14 +63,6 @@ public class PantryActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Pantry navigation button
-        Button pantryNavigationButton =
-                findViewById(R.id.pantryNavigationButton);
-
-        pantryNavigationButton.setOnClickListener(v -> {
-
-        });
-
         // Settings navigation button
         Button settingsNavigationButton =
                 findViewById(R.id.settingsNavigationButton);

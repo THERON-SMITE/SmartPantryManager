@@ -1,9 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.SmartPantryManager" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!-- Base application theme -->
+    <style name="Base.Theme.SmartPantryManager"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/app_primary</item>
+        <item name="colorSecondary">@color/app_primary</item>
+
     </style>
 
-    <style name="Theme.SmartPantryManager" parent="Base.Theme.SmartPantryManager" />
+    <!-- Reusable screen heading style -->
+    <style name="ScreenHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textColor">@color/app_button_text</item>
+        <item name="android:background">@color/app_heading</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+    <!-- Main application theme -->
+    <style name="Theme.SmartPantryManager"
+        parent="Base.Theme.SmartPantryManager" />
+
 </resources>

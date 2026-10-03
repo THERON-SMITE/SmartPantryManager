@@ -1,54 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <!-- Recipe name heading -->
+    <TextView
+        android:id="@+id/recipeNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="Recipe Name"
+        style="@style/ScreenHeading"
+        android:padding="12dp" />
 
-        <TextView
-            android:id="@+id/recipeNameTextView"
+    <!-- Scrollable recipe information -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recipe Name"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:paddingBottom="20dp" />
+            android:orientation="vertical"
+            android:padding="12dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ingredients"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            <!-- Ingredients heading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingredients"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingTop="4dp"
+                android:paddingBottom="8dp" />
 
-        <TextView
-            android:id="@+id/ingredientsTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingBottom="24dp" />
+            <!-- Ingredients -->
+            <TextView
+                android:id="@+id/ingredientsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:paddingBottom="16dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Method"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:paddingBottom="8dp" />
+            <!-- Method heading -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Method"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp" />
 
-        <TextView
-            android:id="@+id/methodTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            <!-- Method -->
+            <TextView
+                android:id="@+id/methodTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"/>
 
-    </LinearLayout>
+            <!-- Back button -->
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Back"
+                android:layout_margin="8dp"/>
 
-</ScrollView>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

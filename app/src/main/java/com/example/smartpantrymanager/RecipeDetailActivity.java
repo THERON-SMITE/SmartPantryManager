@@ -1,6 +1,7 @@
 package com.example.smartpantrymanager;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -43,6 +44,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     return insets;
                 }
         );
+
+        // Back button
+        Button backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(v -> finish());
 
         // Find the recipe detail controls
         recipeNameTextView =

@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/suggestedRecipesTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Suggested Recipes"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:paddingBottom="12dp" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/noRecipesMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No recipes match ingredients in the pantry."
-        android:textSize="16sp"
-        android:visibility="gone"
-        android:padding="16dp" />
+        <!-- Suggested recipes heading -->
+        <TextView
+            android:id="@+id/suggestedRecipesTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Suggested Recipes"
+            style="@style/ScreenHeading" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/suggestedRecipesRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <!-- No recipes message -->
+        <TextView
+            android:id="@+id/noRecipesMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No recipes match ingredients in the pantry."
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:padding="16dp" />
 
-</LinearLayout>
+        <!-- Suggested recipes -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggestedRecipesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+        <!-- Back button -->
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+</ScrollView>

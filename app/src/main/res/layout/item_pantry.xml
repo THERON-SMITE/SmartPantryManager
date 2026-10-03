@@ -3,54 +3,79 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="horizontal"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/pantry_item_background"
+    android:elevation="2dp">
 
-    <!-- Ingredient name -->
-    <TextView
-        android:id="@+id/ingredientNameText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- Ingredient quantity -->
-    <TextView
-        android:id="@+id/ingredientQuantityText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="15sp" />
-
-    <!-- Ingredient expiry date -->
-    <TextView
-        android:id="@+id/ingredientExpiryText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textSize="14sp" />
-
-    <!-- Buttons for editing and deleting -->
+    <!-- Ingredient information -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
+        <!-- Ingredient name -->
+        <TextView
+            android:id="@+id/ingredientNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#222222" />
+
+        <!-- Ingredient quantity -->
+        <TextView
+            android:id="@+id/ingredientQuantityText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="15sp"
+            android:textColor="#555555" />
+
+        <!-- Ingredient expiry -->
+        <TextView
+            android:id="@+id/ingredientExpiryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="14sp"
+            android:textColor="#777777" />
+
+    </LinearLayout>
+
+    <!-- Action buttons -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="8dp">
+
+        <!-- Edit button -->
         <Button
             android:id="@+id/editButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Edit" />
+            android:text="Edit"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
 
+        <!-- Delete button -->
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Delete"
-            android:layout_marginStart="8dp" />
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginStart="4dp" />
 
     </LinearLayout>
 
