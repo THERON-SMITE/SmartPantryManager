@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
 
-        // Close the temporary main screen
+        // Close the launch screen so the back button does not return to it
         finish();
     }
 }
