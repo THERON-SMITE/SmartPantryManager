@@ -28,4 +28,19 @@
     <style name="Theme.SmartPantryManager"
         parent="Base.Theme.SmartPantryManager" />
 
+    <!-- Highlight behind the selected navigation item -->
+    <style name="BottomNavIndicator"
+        parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/app_primary</item>
+    </style>
+
+    <!-- Bottom navigation bar settings -->
+    <style name="BottomNavBar"
+        parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">@color/app_heading</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="itemActiveIndicatorStyle">@style/BottomNavIndicator</item>
+    </style>
+
 </resources>

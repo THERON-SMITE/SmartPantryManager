@@ -37,7 +37,6 @@ public class AddEditIngredientActivity extends AppCompatActivity {
         expiryDateEditText = findViewById(R.id.expiryDateEditText);
 
         Button saveIngredientButton = findViewById(R.id.saveIngredientButton);
-        Button backButton = findViewById(R.id.backButton);
 
         TextView formTitle = findViewById(R.id.formTitle);
 
@@ -113,8 +112,8 @@ public class AddEditIngredientActivity extends AppCompatActivity {
         // Save the pantry item
         saveIngredientButton.setOnClickListener(v -> saveIngredient());
 
-        // Return to the pantry screen
-        backButton.setOnClickListener(v -> finish());
+        // Bottom navigation bar
+        NavigationHelper.setup(this, NavigationHelper.NO_TAB);
     }
 
     private void loadPantryItem() {

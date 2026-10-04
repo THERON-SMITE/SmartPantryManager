@@ -5,6 +5,8 @@ import com.example.smartpantrymanager.models.RecipeIngredient;
 import com.example.smartpantrymanager.database.RecipeDAO;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class RecipeMatcher {
 
@@ -21,7 +23,7 @@ public class RecipeMatcher {
                     0,
                     name.length() - 3
             ) + "y";
-        } else if (name.endsWith("es")) {
+        } else if (name.endsWith("oes") || name.endsWith("ches") || name.endsWith("shes") || name.endsWith("xes")) {
             name = name.substring(
                     0,
                     name.length() - 2
@@ -31,6 +33,14 @@ public class RecipeMatcher {
                     0,
                     name.length() - 1
             );
+        }
+
+        // Singular words ending in "ie" get the same form as their plural
+        if (name.endsWith("ie")) {
+            name = name.substring(
+                    0,
+                    name.length() - 2
+            ) + "y";
         }
 
         return name;
@@ -62,8 +72,12 @@ public class RecipeMatcher {
                     }
 
                     // Check that enough quantity is available
-                    if (pantryItem.getQuantity()
-                            >= requiredIngredient.getRequiredQuantity()) {
+                    if (toBaseQuantity(
+                            pantryItem.getQuantity(),
+                            pantryItem.getUnit())
+                            >= toBaseQuantity(
+                            requiredIngredient.getRequiredQuantity(),
+                            requiredIngredient.getUnit())) {
 
                         ingredientMatched = true;
                         break;
@@ -99,9 +113,52 @@ public class RecipeMatcher {
             String recipeUnit,
             String pantryUnit) {
 
-        // Compare units without case differences
-        return recipeUnit.trim()
-                .equalsIgnoreCase(pantryUnit.trim());
+        // Units match when they measure the same thing
+        return baseUnit(recipeUnit)
+                .equals(baseUnit(pantryUnit));
+    }
+
+    // Weight units become "g" and volume units become "ml"
+    private String baseUnit(String unit) {
+
+        String cleaned = unit.trim().toLowerCase();
+
+        switch (cleaned) {
+            case "g":
+            case "oz":
+            case "lb":
+                return "g";
+
+            case "ml":
+            case "teaspoon":
+            case "tablespoon":
+            case "cups":
+                return "ml";
+
+            default:
+                // whole, slices, pack and can only match themselves
+                return cleaned;
+        }
+    }
+
+    // Convert a quantity to grams or millilitres so it can be compared
+    private double toBaseQuantity(double quantity, String unit) {
+
+        switch (unit.trim().toLowerCase()) {
+            case "oz":
+                return quantity * 28.35;
+            case "lb":
+                return quantity * 453.6;
+            case "teaspoon":
+                return quantity * 5;
+            case "tablespoon":
+                return quantity * 15;
+            case "cups":
+                return quantity * 250;
+            default:
+                // g, ml, whole and slices are already in their base unit
+                return quantity;
+        }
     }
 
     public List<Recipe> getAvailableRecipes(
@@ -129,5 +186,41 @@ public class RecipeMatcher {
         }
 
         return availableRecipes;
+    }
+
+    // Recipes missing exactly one ingredient
+    public Map<Recipe, RecipeIngredient> getAlmostThereRecipes(
+            List<Recipe> recipes,
+            RecipeDAO recipeDAO,
+            List<PantryItem> pantryItems) {
+
+        Map<Recipe, RecipeIngredient> almostThere =
+                new LinkedHashMap<>();
+
+        for (Recipe recipe : recipes) {
+
+            List<RecipeIngredient> ingredients =
+                    recipeDAO.getIngredientsForRecipe(
+                            recipe.getId());
+
+            // Recipes that already qualify belong in the strict list
+            if (canMakeRecipe(recipe, ingredients, pantryItems)) {
+                continue;
+            }
+
+            for (RecipeIngredient candidate : ingredients) {
+
+                List<RecipeIngredient> others =
+                        new ArrayList<>(ingredients);
+                others.remove(candidate);
+
+                if (canMakeRecipe(recipe, others, pantryItems)) {
+                    almostThere.put(recipe, candidate);
+                    break;
+                }
+            }
+        }
+
+        return almostThere;
     }
 }

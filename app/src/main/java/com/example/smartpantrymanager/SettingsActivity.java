@@ -2,7 +2,6 @@ package com.example.smartpantrymanager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 import androidx.activity.EdgeToEdge;
@@ -114,9 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
         );
 
-        // Return to the previous screen
-        Button backButton = findViewById(R.id.backButton);
-
-        backButton.setOnClickListener(v -> finish());
+        // Bottom navigation bar
+        NavigationHelper.setup(this, R.id.nav_settings);
     }
 }

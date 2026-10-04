@@ -1,7 +1,6 @@
 package com.example.smartpantrymanager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,12 +14,17 @@ import com.example.smartpantrymanager.models.Recipe;
 import com.example.smartpantrymanager.models.RecipeIngredient;
 import com.example.smartpantrymanager.services.RecipeMatcher;
 import java.util.List;
+import android.view.View;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class SuggestedRecipesActivity
         extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TextView noRecipesMessage;
+    private TextView almostThereTitle;
+    private RecyclerView almostThereRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +46,18 @@ public class SuggestedRecipesActivity
                         R.id.noRecipesMessage
                 );
 
-        // Return to the pantry screen
-        Button backButton = findViewById(R.id.backButton);
-                backButton.setOnClickListener(v -> finish());
+        // Bottom navigation bar
+        NavigationHelper.setup(this, R.id.nav_recipes);
 
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this)
         );
+
+        // Return lmost there heading and list
+        almostThereTitle = findViewById(R.id.almostThereTitle);
+        almostThereRecyclerView = findViewById(R.id.almostThereRecyclerView);
+        almostThereRecyclerView.setLayoutManager(
+                new LinearLayoutManager(this));
 
         loadSuggestedRecipes();
     }
@@ -122,6 +131,35 @@ public class SuggestedRecipesActivity
                     );
 
             recyclerView.setAdapter(adapter);
+        }
+
+        // Almost there recipes missing exactly one ingredient
+        Map<Recipe, RecipeIngredient> almostThere =
+                matcher.getAlmostThereRecipes(
+                        recipes,
+                        recipeDAO,
+                        pantryItems);
+
+        if (almostThere.isEmpty()) {
+            almostThereTitle.setVisibility(View.GONE);
+            almostThereRecyclerView.setVisibility(View.GONE);
+        } else {
+            almostThereTitle.setVisibility(View.VISIBLE);
+            almostThereRecyclerView.setVisibility(View.VISIBLE);
+
+            RecipeAdapter almostThereAdapter =
+                    new RecipeAdapter(
+                            new ArrayList<>(almostThere.keySet()),
+                            recipe -> {
+                                Intent intent = new Intent(
+                                        SuggestedRecipesActivity.this,
+                                        RecipeDetailActivity.class);
+                                intent.putExtra("recipeId", recipe.getId());
+                                startActivity(intent);
+                            });
+
+            almostThereAdapter.setMissingIngredients(almostThere);
+            almostThereRecyclerView.setAdapter(almostThereAdapter);
         }
     }
 

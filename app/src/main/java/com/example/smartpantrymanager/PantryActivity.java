@@ -2,7 +2,6 @@ package com.example.smartpantrymanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,33 +49,8 @@ public class PantryActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Suggested recipes button
-        Button suggestedRecipesButton =
-                findViewById(R.id.suggestedRecipesButton);
-
-        suggestedRecipesButton.setOnClickListener(v -> {
-            // Open the suggested recipes screen
-            Intent intent = new Intent(
-                    PantryActivity.this,
-                    SuggestedRecipesActivity.class );
-
-            startActivity(intent);
-        });
-
-        // Settings navigation button
-        Button settingsNavigationButton =
-                findViewById(R.id.settingsNavigationButton);
-
-        settingsNavigationButton.setOnClickListener(v -> {
-
-            // Open the Settings screen
-            Intent intent = new Intent(
-                    PantryActivity.this,
-                    SettingsActivity.class
-            );
-
-            startActivity(intent);
-        });
+        // Bottom navigation bar
+        NavigationHelper.setup(this, R.id.nav_pantry);
     }
 
     @Override

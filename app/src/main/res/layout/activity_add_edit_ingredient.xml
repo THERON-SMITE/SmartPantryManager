@@ -1,76 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <!-- Scrollable screen content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="0dp" >
+
+            <!-- Screen title -->
+            <TextView
+                android:id="@+id/formTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Ingredient"
+                style="@style/ScreenHeading" />
+
+            <!-- Ingredient name -->
+            <EditText
+                android:id="@+id/ingredientNameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingredient name"
+                android:inputType="textCapSentences"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Quantity -->
+            <EditText
+                android:id="@+id/quantityEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Quantity"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Unit -->
+            <Spinner
+                android:id="@+id/unitSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Expiry date -->
+            <EditText
+                android:id="@+id/expiryDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Expiry date (optional)"
+                android:focusable="false"
+                android:clickable="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Save button -->
+            <Button
+                android:id="@+id/saveIngredientButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Ingredient"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Bottom navigation bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        style="@style/BottomNavBar"/>
 
-        <!-- Screen title -->
-        <TextView
-            android:id="@+id/formTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Ingredient"
-            style="@style/ScreenHeading" />
-<!--            android:textSize="26sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:layout_marginBottom="20dp" />-->
-
-        <!-- Ingredient name -->
-        <EditText
-            android:id="@+id/ingredientNameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ingredient name"
-            android:inputType="textCapSentences" />
-
-        <!-- Quantity -->
-        <EditText
-            android:id="@+id/quantityEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Quantity"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="12dp" />
-
-        <!-- Unit -->
-        <Spinner
-            android:id="@+id/unitSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
-
-        <!-- Expiry date -->
-        <EditText
-            android:id="@+id/expiryDateEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Expiry date (optional)"
-            android:focusable="false"
-            android:clickable="true"
-            android:layout_marginTop="12dp" />
-
-        <!-- Save button -->
-        <Button
-            android:id="@+id/saveIngredientButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Ingredient"
-            android:layout_marginTop="24dp" />
-
-        <!-- Back button -->
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:layout_marginTop="8dp" />
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

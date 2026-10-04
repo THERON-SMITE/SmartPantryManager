@@ -1,16 +1,13 @@
 package com.example.smartpantrymanager;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import com.example.smartpantrymanager.database.RecipeDAO;
 import com.example.smartpantrymanager.models.Recipe;
 import com.example.smartpantrymanager.models.RecipeIngredient;
 import java.util.List;
+import java.text.DecimalFormat;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
@@ -25,30 +22,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_recipe_detail);
 
-        ViewCompat.setOnApplyWindowInsetsListener(
-                findViewById(R.id.main),
-                (v, insets) -> {
-
-                    Insets systemBars =
-                            insets.getInsets(
-                                    WindowInsetsCompat.Type.systemBars()
-                            );
-
-                    v.setPadding(
-                            systemBars.left,
-                            systemBars.top,
-                            systemBars.right,
-                            systemBars.bottom
-                    );
-
-                    return insets;
-                }
-        );
-
-        // Back button
-        Button backButton = findViewById(R.id.backButton);
-
-        backButton.setOnClickListener(v -> finish());
+        // Bottom navigation bar
+        NavigationHelper.setup(this, NavigationHelper.NO_TAB);
 
         // Find the recipe detail controls
         recipeNameTextView =
@@ -113,10 +88,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
         StringBuilder ingredientText =
                 new StringBuilder();
 
+        // Display quantities without unnecessary decimal places
+        DecimalFormat quantityFormat =
+                new DecimalFormat("0.##");
+
         for (RecipeIngredient ingredient : ingredients) {
 
             ingredientText
-                    .append(ingredient.getRequiredQuantity())
+                    .append(quantityFormat.format(ingredient.getRequiredQuantity()))
                     .append(" ")
                     .append(ingredient.getUnit())
                     .append(" ")
