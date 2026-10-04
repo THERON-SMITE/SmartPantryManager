@@ -23,10 +23,10 @@ A recipe is only suggested when every ingredient it needs is in the pantry, with
 | Screen | Purpose |
 |---|---|
 | Pantry | Lists all pantry items, with Edit and Delete buttons for each item |
-Add/Edit Ingredient | Screen for creating a new item or changing an existing item
-Suggested Recipes | Recipes that pass the strict-matching rule, followed by the "Almost there" list
-Recipe Detail | Ingredients and method for the selected recipe
-Settings | Expiry alerts switch and preferred unit system
+| Add/Edit Ingredient | Screen for creating a new item or changing an existing item |
+| Suggested Recipes | Recipes that pass the strict-matching rule, followed by the "Almost there" list |
+| Recipe Detail | Ingredients and method for the selected recipe |
+| Settings | Expiry alerts switch and preferred unit system |
 
 ## Strict-matching rule
 
@@ -53,9 +53,9 @@ The app uses **SQLite**, implemented with `SQLiteOpenHelper`.
 
 | Table | Columns |
 | --- | --- |
-`pantry` | id, name, quantity, unit, expiryDate
-`recipes` | id, name, instructions
-`recipe_ingredients` | id, recipeId, ingredientName, requiredQuantity, unit
+| `pantry` | id, name, quantity, unit, expiryDate |
+| `recipes` | id, name, instructions |
+| `recipe_ingredients` | id, recipeId, ingredientName, requiredQuantity, unit |
 
 `recipeId` in `recipe_ingredients` links each ingredient to its recipe in the `recipes` table.
 The pantry supports full CRUD: items can be created, viewed, updated and deleted, and the data is still available after the app is closed and opened again.
@@ -63,6 +63,7 @@ The two settings are stored with SharedPreferences, because they are simple valu
 
 ## Project structure
 
+```
 app/src/main/java/com/example/smartpantrymanager/
     MainActivity.java                Creates the database and opens the pantry screen
     PantryActivity.java              Pantry list
@@ -85,6 +86,7 @@ app/src/main/java/com/example/smartpantrymanager/
         RecipeIngredient.java
     services/
         RecipeMatcher.java           Strict-matching logic
+```
 
 ## Setup and run instructions
 
