@@ -2,7 +2,6 @@
 ## Description
 
 Smart Pantry Manager is an Android application written in Java. It helps a user reduce food waste by keeping track of the ingredients they already have at home and suggesting recipes that can be cooked with those ingredients only.
-
 A recipe is only suggested when every ingredient it needs is in the pantry, with the required quantity. No shopping trip is needed for any recipe on the suggestions list.
 
 ## Features
@@ -21,8 +20,9 @@ A recipe is only suggested when every ingredient it needs is in the pantry, with
 
 ## Screens
 
-Screen | Purpose
-Pantry | Lists all pantry items, with Edit and Delete buttons for each item
+| Screen | Purpose |
+|---|---|
+| Pantry | Lists all pantry items, with Edit and Delete buttons for each item |
 Add/Edit Ingredient | Screen for creating a new item or changing an existing item
 Suggested Recipes | Recipes that pass the strict-matching rule, followed by the "Almost there" list
 Recipe Detail | Ingredients and method for the selected recipe
@@ -51,7 +51,8 @@ The app uses **SQLite**, implemented with `SQLiteOpenHelper`.
 
 ### Tables
 
-Table | Columns
+| Table | Columns |
+| --- | --- |
 `pantry` | id, name, quantity, unit, expiryDate
 `recipes` | id, name, instructions
 `recipe_ingredients` | id, recipeId, ingredientName, requiredQuantity, unit
