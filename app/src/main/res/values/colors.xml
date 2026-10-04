@@ -8,4 +8,6 @@
     <color name="app_button">#4CAF50</color>
     <color name="app_heading">#2E7D32</color>
     <color name="app_button_text">#FFFFFFFF</color>
+    <color name="expiry_warning">#C62828</color>
+    <color name="expiry_soon">#F57F17</color>
 </resources>

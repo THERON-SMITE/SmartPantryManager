@@ -17,6 +17,13 @@ import com.example.smartpantrymanager.R;
 import com.example.smartpantrymanager.database.PantryDAO;
 import com.example.smartpantrymanager.models.PantryItem;
 import java.util.List;
+import android.content.res.ColorStateList;
+import androidx.core.content.ContextCompat;
+import com.example.smartpantrymanager.SettingsActivity;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryViewHolder> {
@@ -24,11 +31,18 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
     private final List<PantryItem> pantryItems;
     private final Context context;
     private final PantryDAO pantryDAO;
+    private final boolean expiryAlertsEnabled;
 
     public PantryAdapter(Context context, List<PantryItem> pantryItems) {
         this.context = context;
         this.pantryItems = pantryItems;
         this.pantryDAO = new PantryDAO(context);
+
+        // Read the setting chosen on the Settings screen
+        expiryAlertsEnabled = context
+                .getSharedPreferences(SettingsActivity.PREFS_NAME,
+                        Context.MODE_PRIVATE)
+                .getBoolean(SettingsActivity.KEY_EXPIRY_ALERTS, true);
     }
 
     @NonNull
@@ -65,18 +79,30 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
                         + item.getUnit()
         );
 
-        if (item.getExpiryDate() == null ||
-                item.getExpiryDate().isEmpty()) {
+        holder.ingredientExpiryText.setTextColor(holder.defaultExpiryColour);
 
-            holder.ingredientExpiryText.setText(
-                    "No expiry date"
-            );
+        String expiryDate = item.getExpiryDate();
 
+        if (expiryDate == null || expiryDate.isEmpty()) {
+            holder.ingredientExpiryText.setText("No expiry date");
         } else {
+            long daysLeft = daysUntil(expiryDate);
 
-            holder.ingredientExpiryText.setText(
-                    "Expires: " + item.getExpiryDate()
-            );
+            if (expiryAlertsEnabled && daysLeft < 0) {
+                // Already expired: red
+                holder.ingredientExpiryText.setText("Expired: " + expiryDate);
+                holder.ingredientExpiryText.setTextColor(
+                        ContextCompat.getColor(context, R.color.expiry_warning));
+
+            } else if (expiryAlertsEnabled && daysLeft <= 3) {
+                // Expires within 3 days: amber
+                holder.ingredientExpiryText.setText("Expiring soon: " + expiryDate);
+                holder.ingredientExpiryText.setTextColor(
+                        ContextCompat.getColor(context, R.color.expiry_soon));
+
+            } else {
+                holder.ingredientExpiryText.setText("Expires: " + expiryDate);
+            }
         }
 
         holder.editButton.setOnClickListener(v -> {
@@ -151,6 +177,27 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
         });
     }
 
+    // Number of days from today until the expiry date (yyyy-MM-dd)
+    private long daysUntil(String expiryDate) {
+        try {
+            Date expiry = new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                    .parse(expiryDate);
+
+            Calendar today = Calendar.getInstance();
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+
+            long difference = expiry.getTime() - today.getTimeInMillis();
+            return Math.round(difference / (24.0 * 60 * 60 * 1000));
+
+        } catch (Exception e) {
+            // An unreadable date is never flagged
+            return Long.MAX_VALUE;
+        }
+    }
+
     @Override
     public int getItemCount() {
         return pantryItems.size();
@@ -165,6 +212,7 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
 
         Button editButton;
         Button deleteButton;
+        ColorStateList defaultExpiryColour;
 
         public PantryViewHolder(
                 @NonNull View itemView) {
@@ -196,6 +244,9 @@ public class PantryAdapter extends RecyclerView.Adapter<PantryAdapter.PantryView
                     itemView.findViewById(
                             R.id.deleteButton
                     );
+
+            // Remember the normal text colour so it can be restored
+            defaultExpiryColour = ingredientExpiryText.getTextColors();
         }
     }
 }

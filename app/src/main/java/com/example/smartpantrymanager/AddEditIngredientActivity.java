@@ -41,19 +41,43 @@ public class AddEditIngredientActivity extends AppCompatActivity {
 
         TextView formTitle = findViewById(R.id.formTitle);
 
-        // Create the unit spinner
-        String[] units = {
-                "Select unit",
-                "whole",
-                "g",
-                "ml",
-                "slices",
-                "tablespoon",
-                "teaspoon",
-                "cups",
-                "pack",
-                "can"
-        };
+        // Handle the units for the selection chosen on the Settings screen
+        String unitSystem = getSharedPreferences(
+                SettingsActivity.PREFS_NAME, MODE_PRIVATE)
+                .getString(SettingsActivity.KEY_UNIT_SYSTEM, "Metric");
+
+        String[] units;
+
+        // Create the unit spinner for Imperial
+        if (unitSystem.equals("Imperial")) {
+            units = new String[] {
+                    "Select unit",
+                    "whole",
+                    "oz",
+                    "lb",
+                    "slices",
+                    "tablespoon",
+                    "teaspoon",
+                    "cups",
+                    "pack",
+                    "can"
+            };
+        }
+        // Create the unit spinner for Metric
+        else {
+            units = new String[] {
+                    "Select unit",
+                    "whole",
+                    "g",
+                    "ml",
+                    "slices",
+                    "tablespoon",
+                    "teaspoon",
+                    "cups",
+                    "pack",
+                    "can"
+            };
+        }
 
         ArrayAdapter<String> unitAdapter =
                 new ArrayAdapter<>(
